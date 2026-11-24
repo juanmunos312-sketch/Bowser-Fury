@@ -3,6 +3,7 @@ package com.abril.bowsersfury.entity;
 import com.abril.bowsersfury.registry.ModItems;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.PowerParticleOption;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerBossEvent;
@@ -172,7 +173,7 @@ public class FuryBowserEntity extends Monster {
             level().addParticle(ParticleTypes.SOUL_FIRE_FLAME, px, py, pz,
                     Math.cos(angle) * 0.015D, 0.035D, Math.sin(angle) * 0.015D);
             if (i % 2 == 0) {
-                level().addParticle(ParticleTypes.DRAGON_BREATH, px, py + 0.35D, pz,
+                level().addParticle(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F), px, py + 0.35D, pz,
                         0.0D, 0.012D, 0.0D);
             }
         }
@@ -215,7 +216,7 @@ public class FuryBowserEntity extends Monster {
                     0.9D, 0.9D, 0.9D, 0.10D);
             server.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, x, y, z, 7,
                     0.55D, 0.55D, 0.55D, 0.06D);
-            server.sendParticles(ParticleTypes.DRAGON_BREATH, x, y, z, 5,
+            server.sendParticles(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F), x, y, z, 5,
                     0.45D, 0.45D, 0.45D, 0.025D);
 
             AABB blastBox = new AABB(x - 2.6D, y - 2.6D, z - 2.6D,
@@ -346,7 +347,7 @@ public class FuryBowserEntity extends Monster {
         }
 
         server.playSound(null, center.x, center.y, center.z,
-                hazard.meteor ? SoundEvents.DRAGON_FIREBALL_EXPLODE : SoundEvents.GENERIC_EXPLODE,
+                hazard.meteor ? SoundEvents.DRAGON_FIREBALL_EXPLODE : SoundEvents.DRAGON_FIREBALL_EXPLODE,
                 SoundSource.HOSTILE, hazard.meteor ? 6.0F : 4.5F, hazard.meteor ? 0.5F : 0.72F);
     }
 
@@ -363,7 +364,7 @@ public class FuryBowserEntity extends Monster {
             server.sendParticles(ParticleTypes.FLAME, point.x, point.y, point.z, 12,
                     spread, spread * 0.72D, spread, 0.06D);
             if (step % 2 == 0) {
-                server.sendParticles(ParticleTypes.DRAGON_BREATH, point.x, point.y, point.z, 5,
+                server.sendParticles(PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F), point.x, point.y, point.z, 5,
                         spread * 0.55D, spread * 0.45D, spread * 0.55D, 0.025D);
             }
         }
@@ -412,7 +413,7 @@ public class FuryBowserEntity extends Monster {
                 30, 6.0D, 2.0D, 6.0D, 0.12D);
         server.playSound(null, blockPosition(), SoundEvents.ENDER_DRAGON_FLAP,
                 SoundSource.HOSTILE, 5.5F, 0.55F);
-        server.playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE,
+        server.playSound(null, blockPosition(), SoundEvents.DRAGON_FIREBALL_EXPLODE,
                 SoundSource.HOSTILE, 3.5F, 0.8F);
         tailCooldown = phaseTwo ? 48 : 78;
     }
@@ -434,7 +435,7 @@ public class FuryBowserEntity extends Monster {
                 SoundSource.HOSTILE, 8.0F, 0.42F);
         server.playSound(null, blockPosition(), SoundEvents.LIGHTNING_BOLT_THUNDER,
                 SoundSource.HOSTILE, 6.0F, 0.65F);
-        server.sendParticles(ParticleTypes.FLASH, getX(), getY() + getBbHeight(), getZ(),
+        server.sendParticles(ParticleTypes.EXPLOSION_EMITTER, getX(), getY() + getBbHeight(), getZ(),
                 1, 0.0D, 0.0D, 0.0D, 0.0D);
 
         double centerX = target != null ? target.getX() : getX();
@@ -475,7 +476,7 @@ public class FuryBowserEntity extends Monster {
                 4.0D, 4.0D, 4.0D, 0.08D);
         server.playSound(null, blockPosition(), SoundEvents.ENDER_DRAGON_GROWL,
                 SoundSource.HOSTILE, 8.0F, 0.45F);
-        server.playSound(null, blockPosition(), SoundEvents.GENERIC_EXPLODE,
+        server.playSound(null, blockPosition(), SoundEvents.DRAGON_FIREBALL_EXPLODE,
                 SoundSource.HOSTILE, 6.0F, 0.55F);
     }
 

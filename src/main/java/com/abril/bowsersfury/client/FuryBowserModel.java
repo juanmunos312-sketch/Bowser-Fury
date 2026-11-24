@@ -55,7 +55,7 @@ public class FuryBowserModel extends EntityModel<FuryBowserRenderState> {
         // The complete silhouette spans about 229 model units vertically. At 2.8x,
         // this renders at roughly 40 blocks tall (16 model units = 1 block).
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(),
-                PartPose.offset(0.0F, 68.0F, 0.0F));
+                PartPose.offset(0.0F, -57.0F, 0.0F));
 
         // Broad torso, belly plates and layered dark armor.
         cube(body, "torso_core", 0, -39, -32, -20, 78, 64, 46);
@@ -162,13 +162,13 @@ public class FuryBowserModel extends EntityModel<FuryBowserRenderState> {
 
         // Broad, grounded legs and oversized armored feet.
         PartDefinition leftLeg = root.addOrReplaceChild("left_leg", CubeListBuilder.create(),
-                PartPose.offset(22.0F, 100.0F, 0.0F));
+                PartPose.offset(22.0F, -25.0F, 0.0F));
         cube(leftLeg, "thigh", 77, -15, -4, -13, 30, 23, 27);
         cube(leftLeg, "shin", 78, -14, 15, -12, 28, 22, 25);
         cube(leftLeg, "foot", 79, -20, 32, -24, 40, 17, 39);
         cube(leftLeg, "toe_claws", 80, -16, 43, -39, 32, 7, 17);
         PartDefinition rightLeg = root.addOrReplaceChild("right_leg", CubeListBuilder.create(),
-                PartPose.offset(-22.0F, 100.0F, 0.0F));
+                PartPose.offset(-22.0F, -25.0F, 0.0F));
         cube(rightLeg, "thigh", 81, -15, -4, -13, 30, 23, 27);
         cube(rightLeg, "shin", 82, -14, 15, -12, 28, 22, 25);
         cube(rightLeg, "foot", 83, -20, 32, -24, 40, 17, 39);
@@ -189,7 +189,7 @@ public class FuryBowserModel extends EntityModel<FuryBowserRenderState> {
         rightLeg.xRot = (float) Math.cos(walk * 0.48F + Math.PI) * 0.48F * walkAmount;
         leftArm.xRot = (float) Math.cos(walk * 0.42F + Math.PI) * 0.22F * walkAmount;
         rightArm.xRot = (float) Math.cos(walk * 0.42F) * 0.22F * walkAmount;
-        body.y = 68.0F + (float) Math.sin(age * 0.055F) * 0.9F;
+        body.y = -57.0F + (float) Math.sin(age * 0.055F) * 0.9F;
         shell.yRot = (float) Math.sin(age * 0.022F) * 0.025F;
         tail.yRot = (float) Math.sin(age * 0.055F) * 0.12F;
         tail.xRot = 0.06F + (float) Math.sin(age * 0.04F) * 0.045F;

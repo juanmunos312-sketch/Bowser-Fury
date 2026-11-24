@@ -3,7 +3,13 @@
     "defeat_fury_bowser": {
       "trigger": "minecraft:player_killed_entity",
       "conditions": {
-        "entity": {"type": "bowsersfury:fury_bowser"}
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {"type": "bowsersfury:fury_bowser"}
+          }
+        ]
       }
     }
   },

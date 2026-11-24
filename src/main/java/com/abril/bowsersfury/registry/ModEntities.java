@@ -16,7 +16,7 @@ public final class ModEntities {
 
     public static final RegistryObject<EntityType<FuryBowserEntity>> FURY_BOWSER = ENTITY_TYPES.register("fury_bowser",
             () -> EntityType.Builder.of(FuryBowserEntity::new, MobCategory.MONSTER)
-                    .sized(29.0F, 40.0F).clientTrackingRange(12).build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(BowsersFury.MOD_ID, "fury_bowser"))));
+                    .sized(18.0F, 38.0F).clientTrackingRange(12).build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(BowsersFury.MOD_ID, "fury_bowser"))));
 
     private ModEntities() {}
 }
