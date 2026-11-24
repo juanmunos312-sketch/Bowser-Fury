@@ -10,7 +10,7 @@ public class FuryBowserRenderer extends MobRenderer<FuryBowserEntity, FuryBowser
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath("bowsersfury", "textures/entity/fury_bowser.png");
 
     public FuryBowserRenderer(EntityRendererProvider.Context context) {
-        super(context, new FuryBowserModel(context.bakeLayer(FuryBowserModel.LAYER)), 12.0F);
+        super(context, new FuryBowserModel(context.bakeLayer(FuryBowserModel.LAYER)), 18.0F);
     }
 
     @Override public FuryBowserRenderState createRenderState() { return new FuryBowserRenderState(); }
@@ -22,6 +22,6 @@ public class FuryBowserRenderer extends MobRenderer<FuryBowserEntity, FuryBowser
     @Override public Identifier getTextureLocation(FuryBowserRenderState state) { return TEXTURE; }
 
     @Override protected void scale(FuryBowserRenderState state, PoseStack pose) {
-        pose.scale(2.8F, 2.8F, 2.8F);
+        pose.scale(4.8F, 4.8F, 4.8F);
     }
 }

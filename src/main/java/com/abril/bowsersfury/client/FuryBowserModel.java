@@ -52,8 +52,8 @@ public class FuryBowserModel extends EntityModel<FuryBowserRenderState> {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
-        // The complete silhouette spans about 229 model units vertically. At 2.8x,
-        // this renders at roughly 40 blocks tall (16 model units = 1 block).
+        // The complete silhouette spans about 229 model units vertically. The renderer
+        // scales it to approximately 69 Minecraft blocks, with a matching entity hitbox.
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(),
                 PartPose.offset(0.0F, -57.0F, 0.0F));
 
@@ -174,6 +174,58 @@ public class FuryBowserModel extends EntityModel<FuryBowserRenderState> {
         cube(rightLeg, "foot", 83, -20, 32, -24, 40, 17, 39);
         cube(rightLeg, "toe_claws", 84, -16, 43, -39, 32, 7, 17);
 
+
+        // Extra armor anatomy: neck mantle, layered throat plates and raised chest armor.
+        cube(body, "neck_mantle", 8, -31, -43, -26, 62, 22, 34);
+        cube(body, "throat_plate_upper", 3, -25, -17, -31, 50, 13, 9);
+        cube(body, "throat_plate_lower", 2, -22, -4, -32, 44, 12, 9);
+        cube(body, "belly_side_left", 0, -33, 18, -22, 10, 13, 10);
+        cube(body, "belly_side_right", 0, 23, 18, -22, 10, 13, 10);
+
+        // Additional shell plates and a second ring of large, outward-facing spikes.
+        cube(shell, "shell_upper_ridge", 25, -38, -34, -7, 76, 13, 29);
+        cube(shell, "shell_left_lobe", 26, -55, -25, -2, 14, 45, 22);
+        cube(shell, "shell_right_lobe", 26, 41, -25, -2, 14, 45, 22);
+        cube(shell, "spike_back_left_base", 29, -46, -49, 5, 16, 14, 14);
+        cube(shell, "spike_back_left_mid", 30, -48, -62, 8, 11, 15, 10);
+        cube(shell, "spike_back_left_tip", 31, -50, -73, 11, 7, 13, 7);
+        cube(shell, "spike_back_right_base", 32, 30, -49, 5, 16, 14, 14);
+        cube(shell, "spike_back_right_mid", 33, 34, -62, 8, 11, 15, 10);
+        cube(shell, "spike_back_right_tip", 34, 37, -73, 11, 7, 13, 7);
+        cube(shell, "spike_lower_left", 35, -54, 9, 1, 18, 14, 15);
+        cube(shell, "spike_lower_right", 36, 36, 9, 1, 18, 14, 15);
+        cube(shell, "spike_rear_center_base", 37, -8, 24, 7, 16, 13, 13);
+        cube(shell, "spike_rear_center_mid", 38, -6, 36, 10, 12, 12, 10);
+        cube(shell, "spike_rear_center_tip", 39, -4, 47, 13, 8, 10, 7);
+
+        // Stronger facial silhouette: brow ridges, nostrils, cheek armor and paired fangs.
+        cube(head, "brow_left_ridge", 45, -31, -19, -43, 27, 9, 13);
+        cube(head, "brow_right_ridge", 45, 4, -19, -43, 27, 9, 13);
+        cube(head, "nose_left_wing", 47, -28, 0, -55, 15, 13, 13);
+        cube(head, "nose_right_wing", 47, 13, 0, -55, 15, 13, 13);
+        cube(head, "nostril_left", 53, -19, -1, -63, 6, 4, 3);
+        cube(head, "nostril_right", 54, 13, -1, -63, 6, 4, 3);
+        cube(head, "fang_left", 52, -17, 13, -55, 6, 13, 6);
+        cube(head, "fang_right", 52, 11, 13, -55, 6, 13, 6);
+        cube(head, "jaw_chin", 49, -19, 25, -40, 38, 9, 17);
+        cube(head, "cheek_guard_left", 63, -39, 4, -20, 12, 17, 18);
+        cube(head, "cheek_guard_right", 64, 27, 4, -20, 12, 17, 18);
+
+        // Layered flame tongues make the mane taller, wider and visibly jagged.
+        cube(crest, "flame_outer_left", 65, -34, -31, 5, 13, 28, 9);
+        cube(crest, "flame_outer_right", 65, 21, -29, 5, 13, 27, 9);
+        cube(crest, "flame_spear_left", 66, -25, -66, 7, 9, 25, 7);
+        cube(crest, "flame_spear_right", 67, 16, -63, 7, 9, 23, 7);
+        cube(crest, "flame_crown_center", 68, -5, -96, 4, 10, 24, 7);
+
+        // Armored knuckles, elbow guards and long forearm spikes.
+        cube(leftArm, "knuckle_outer", 20, 25, 47, -24, 12, 12, 11);
+        cube(leftArm, "knuckle_inner", 20, -4, 47, -24, 12, 12, 11);
+        cube(rightArm, "knuckle_outer", 19, -37, 47, -24, 12, 12, 11);
+        cube(rightArm, "knuckle_inner", 19, -8, 47, -24, 12, 12, 11);
+        cube(leftArm, "elbow_guard", 18, 16, 11, 8, 17, 17, 17);
+        cube(rightArm, "elbow_guard", 17, -33, 11, 8, 17, 17, 17);
+
         return LayerDefinition.create(mesh, 1024, 2816);
     }
 
@@ -189,11 +241,11 @@ public class FuryBowserModel extends EntityModel<FuryBowserRenderState> {
         rightLeg.xRot = (float) Math.cos(walk * 0.48F + Math.PI) * 0.48F * walkAmount;
         leftArm.xRot = (float) Math.cos(walk * 0.42F + Math.PI) * 0.22F * walkAmount;
         rightArm.xRot = (float) Math.cos(walk * 0.42F) * 0.22F * walkAmount;
-        body.y = -57.0F + (float) Math.sin(age * 0.055F) * 0.9F;
+        body.y = -57.0F + (float) Math.sin(age * 0.055F) * 1.35F;
         shell.yRot = (float) Math.sin(age * 0.022F) * 0.025F;
         tail.yRot = (float) Math.sin(age * 0.055F) * 0.12F;
         tail.xRot = 0.06F + (float) Math.sin(age * 0.04F) * 0.045F;
-        fireCrest.yRot = (float) Math.sin(age * 0.09F) * 0.035F;
+        fireCrest.yRot = (float) Math.sin(age * 0.09F) * 0.055F;
         fireCrest.xRot = (float) Math.sin(age * 0.12F) * 0.025F;
     }
 }
