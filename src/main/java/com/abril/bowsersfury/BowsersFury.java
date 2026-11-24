@@ -11,25 +11,26 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod(BowsersFury.MOD_ID)
 public final class BowsersFury {
     public static final String MOD_ID = "bowsersfury";
 
     public BowsersFury(FMLJavaModLoadingContext context) {
-        IEventBus bus = context.getModEventBus();
-        ModItems.ITEMS.register(bus);
-        ModEntities.ENTITY_TYPES.register(bus);
-        ModCreativeTabs.TABS.register(bus);
+        var modBusGroup = context.getModBusGroup();
+        ModItems.ITEMS.register(modBusGroup);
+        ModEntities.ENTITY_TYPES.register(modBusGroup);
+        ModCreativeTabs.TABS.register(modBusGroup);
 
-        SpawnPlacementRegisterEvent.BUS.addListener(ModCommonEvents::spawnPlacements);
-        EntityAttributeCreationEvent.BUS.addListener(ModCommonEvents::attributes);
+        SpawnPlacementRegisterEvent.getBus(modBusGroup).addListener(ModCommonEvents::spawnPlacements);
+        EntityAttributeCreationEvent.getBus(modBusGroup).addListener(ModCommonEvents::attributes);
         TickEvent.PlayerTickEvent.Post.BUS.addListener(FuryCombatEvents::gigaTimer);
         LivingHurtEvent.BUS.addListener(FuryCombatEvents::bossDamage);
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ModClientEvents::register);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            ModClientEvents.register(context);
+        }
     }
 }

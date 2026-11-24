@@ -2,7 +2,7 @@ package com.abril.bowsersfury.item;
 
 import com.abril.bowsersfury.registry.ModItems;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
 import net.minecraft.world.item.Item;
@@ -15,18 +15,18 @@ public class FuryLauncherItem extends Item {
     private final float damage;
     private final int shardCost;
 
-    public FuryLauncherItem(float speed, float damage, int shardCost) {
-        super(new Item.Properties().stacksTo(1).durability(420));
+    public FuryLauncherItem(Item.Properties properties, float speed, float damage, int shardCost) {
+        super(properties.stacksTo(1).durability(420));
         this.speed = speed;
         this.damage = damage;
         this.shardCost = shardCost;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (!player.getAbilities().instabuild && countShards(player) < shardCost) {
-            return InteractionResultHolder.fail(stack);
+            return InteractionResult.FAIL;
         }
         if (!level.isClientSide()) {
             Vec3 look = player.getLookAngle().normalize().scale(speed);
@@ -43,9 +43,9 @@ public class FuryLauncherItem extends Item {
                 stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND
                         ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
             }
-            player.getCooldowns().addCooldown(this, 12);
+            player.getCooldowns().addCooldown(stack, 12);
         }
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     private int countShards(Player player) {

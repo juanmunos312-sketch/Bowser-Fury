@@ -23,8 +23,8 @@ public final class FuryCombatEvents {
         GIGA_TICKS.put(player.getUUID(), durationTicks);
     }
 
-    public static void bossDamage(LivingHurtEvent event) {
-        if (!(event.getEntity() instanceof FuryBowserEntity)) return;
+    public static boolean bossDamage(LivingHurtEvent event) {
+        if (!(event.getEntity() instanceof FuryBowserEntity)) return false;
         if (event.getSource().getEntity() instanceof Player player) {
             var main = player.getMainHandItem().getItem();
             var off = player.getOffhandItem().getItem();
@@ -34,6 +34,7 @@ public final class FuryCombatEvents {
             }
             if (main == ModItems.GIGA_BELL.get() || off == ModItems.GIGA_BELL.get()) event.setAmount(event.getAmount() * 3.0F);
         }
+        return false;
     }
 
     public static void gigaTimer(TickEvent.PlayerTickEvent.Post event) {
