@@ -26,12 +26,14 @@ minecraft {
 }
 
 repositories {
-    maven { url = 'https://maven.minecraftforge.net/' }
     mavenCentral()
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    implementation minecraft.dependency("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
     annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
 }
 
@@ -53,5 +55,3 @@ jar {
         ])
     }
 }
-
-jar.finalizedBy('reobfJar')
