@@ -79,7 +79,7 @@ public class FuryBowserEntity extends Monster {
                     double pz = getZ() + Math.sin(angle) * 3.4;
                     int surface = level().getHeight(Heightmap.Types.MOTION_BLOCKING, net.minecraft.util.Mth.floor(px), net.minecraft.util.Mth.floor(pz));
                     level().addParticle(ParticleTypes.SQUID_INK, px, surface + 0.12, pz, 0, 0.025, 0);
-                    if (i % 2 == 0) level().addParticle(ParticleTypes.DRAGON_BREATH, px, surface + 0.25, pz, 0, 0.018, 0);
+                    if (i % 2 == 0) level().addParticle(net.minecraft.core.particles.PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1.0F), px, surface + 0.25, pz, 0, 0.018, 0);
                 }
             }
             return;
